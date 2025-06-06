@@ -10,11 +10,18 @@ yarn-debug.log*
 yarn-error.log*
 
 # Build directories
-android/app/
+android/.gradle/
+android/.idea/
+android/local.properties
+android/build/
 android/app/build/
+android/app/.cxx/
+
 ios/build/
 
+# Vendor directories
 vendor/
+/vendor/bundle/
 
 # Xcode
 ios/Pods/
