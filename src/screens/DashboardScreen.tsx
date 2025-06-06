@@ -26,6 +26,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const { width } = Dimensions.get("window");
 
 import type { NavigationProp } from "@react-navigation/native";
+// import DashboardScreen from "../Dashboard";
 
 interface DashboardScreenProps {
   navigation: NavigationProp<any>;
@@ -65,7 +66,7 @@ const theme = {
   },
 };
 
-const Dashboard = ({ navigation }: DashboardScreenProps) => {
+const DashboardScreen = ({ navigation }: DashboardScreenProps) => {
   const [menuVisible, setMenuVisible] = useState(false);
   const [slideAnim] = useState(new Animated.Value(-width));
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
@@ -593,4 +594,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Dashboard;
+export default DashboardScreen;

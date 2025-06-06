@@ -1,8 +1,8 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {Button, Icon, ListItem} from '@rneui/themed';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { Button, Icon, ListItem } from "@rneui/themed";
 
-const QuizComponent: React.FC = () => {
+const QuizScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -23,10 +23,10 @@ const QuizComponent: React.FC = () => {
       <Text style={styles.questionTitle}>Oracle Cloud Financials</Text>
 
       {[
-        'A cloud-based software',
-        'Needs on-premise implementation',
-        'Needs to be installed on Desktop or Laptop',
-        'None of the above',
+        "A cloud-based software",
+        "Needs on-premise implementation",
+        "Needs to be installed on Desktop or Laptop",
+        "None of the above",
       ].map((option, index) => (
         <ListItem key={index} bottomDivider>
           <ListItem.CheckBox
@@ -49,68 +49,68 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 16,
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#8B0000',
+    fontWeight: "bold",
+    color: "#8B0000",
   },
   subtitle: {
     fontSize: 18,
-    color: '#8B0000',
+    color: "#8B0000",
   },
   menuIcon: {
     fontSize: 24,
-    color: '#000',
+    color: "#000",
   },
   quizHeader: {
-    backgroundColor: '#8B0000',
+    backgroundColor: "#8B0000",
     padding: 16,
     borderRadius: 8,
     marginBottom: 16,
   },
   quizTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontWeight: "bold",
+    color: "#fff",
   },
   quizSubtitle: {
     fontSize: 16,
-    color: '#fff',
+    color: "#fff",
   },
   optionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#f0f0f0",
     padding: 8,
     borderRadius: 8,
     marginBottom: 16,
   },
   optionText: {
     fontSize: 16,
-    color: '#000',
+    color: "#000",
   },
   helpIcon: {
     fontSize: 24,
-    color: '#000',
+    color: "#000",
   },
   questionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 8,
   },
   nextButton: {
-    backgroundColor: '#87CEEB',
+    backgroundColor: "#87CEEB",
     marginTop: 16,
   },
 });
 
-export default QuizComponent;
+export default QuizScreen;
