@@ -106,7 +106,7 @@ const LoginScreen = () => {
         const token = `mock-jwt-token-${Date.now()}`;
         const userData = {
           id: "1",
-          name: "User", // You can modify this
+          name: "Quiz User", // You can modify this
           email: `user${mobileNumber.slice(-4)}@example.com`,
           phone: `+91${mobileNumber}`,
           mobile: mobileNumber,

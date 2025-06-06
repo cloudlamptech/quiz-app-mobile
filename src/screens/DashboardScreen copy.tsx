@@ -26,6 +26,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const { width } = Dimensions.get("window");
 
 import type { NavigationProp } from "@react-navigation/native";
+// import DashboardScreen from "../Dashboard";
 
 interface DashboardScreenProps {
   navigation: NavigationProp<any>;
@@ -69,11 +70,6 @@ const DashboardScreen = ({ navigation }: DashboardScreenProps) => {
   const [menuVisible, setMenuVisible] = useState(false);
   const [slideAnim] = useState(new Animated.Value(-width));
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
-
-  // Navigation function for quiz
-  const navigateToQuiz = () => {
-    navigation.navigate("Quiz");
-  };
 
   // Menu items with RNE icons
   const menuItems = [
@@ -168,36 +164,6 @@ const DashboardScreen = ({ navigation }: DashboardScreenProps) => {
       navigation.navigate(screen);
     }
   };
-
-  // Math Quiz Button Component
-  const MathQuizButton = () => (
-    <TouchableOpacity
-      style={styles.mathQuizButton}
-      onPress={navigateToQuiz}
-      activeOpacity={0.8}
-    >
-      <View style={styles.mathQuizContent}>
-        <Icon
-          name="quiz"
-          type="material"
-          size={28}
-          color="#fff"
-          style={styles.mathQuizIcon}
-        />
-        <View style={styles.mathQuizTextContainer}>
-          <Text style={styles.mathQuizTitle}>Take Math Quiz</Text>
-          <Text style={styles.mathQuizSubtitle}>Fun questions for kids!</Text>
-        </View>
-        <Icon
-          name="arrow-forward-ios"
-          type="material"
-          size={20}
-          color="#fff"
-          style={styles.mathQuizArrow}
-        />
-      </View>
-    </TouchableOpacity>
-  );
 
   const renderQuizCard = () => (
     <Card containerStyle={styles.quizCard}>
@@ -391,9 +357,6 @@ const DashboardScreen = ({ navigation }: DashboardScreenProps) => {
     <ThemeProvider theme={theme}>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-          {/* Math Quiz Button */}
-          <MathQuizButton />
-
           {/* Take a Quiz Card */}
           {renderQuizCard()}
 
@@ -449,50 +412,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
 
-  // Math Quiz Button Styles
-  mathQuizButton: {
-    backgroundColor: "#DC2626",
-    borderRadius: 12,
-    marginTop: 20,
-    marginBottom: 10,
-    marginHorizontal: 4,
-    elevation: 3,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-  },
-  mathQuizContent: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 20,
-  },
-  mathQuizIcon: {
-    marginRight: 15,
-  },
-  mathQuizTextContainer: {
-    flex: 1,
-  },
-  mathQuizTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#fff",
-    marginBottom: 4,
-  },
-  mathQuizSubtitle: {
-    fontSize: 14,
-    color: "#ffcccc",
-  },
-  mathQuizArrow: {
-    marginLeft: 10,
-  },
-
   // Quiz Card Styles
   quizCard: {
     backgroundColor: "#4C1D95",
     borderRadius: 16,
     padding: 24,
-    marginTop: 10,
+    marginTop: 20,
     marginBottom: 20,
     borderWidth: 0,
   },
@@ -605,6 +530,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
   },
+  // quizCategory: {
+  //   fontSize: 14,
+  //   color: '#666',
+  //   marginTop: 2,
+  // },
   completedBadge: {
     backgroundColor: "#10B981",
   },
