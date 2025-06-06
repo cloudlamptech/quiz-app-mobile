@@ -1,0 +1,38 @@
+# Node modules
+node_modules/
+
+# macOS
+.DS_Store
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build directories
+android/app/
+android/app/build/
+ios/build/
+
+vendor/
+
+# Xcode
+ios/Pods/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata/
+
+# Android
+*.iml
+.gradle/
+local.properties
+
+# Environment files
+.env
+
+# Keystore files
+*.jks
+*.keystore
