@@ -45,6 +45,8 @@ const AppNavigator = () => {
           // Non-authenticated user screens
           <>
             <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="About" component={AboutScreen} />
+            <Stack.Screen name="Help" component={HelpScreen} />
             {/* Add other non-authenticated screens here */}
           </>
         )}

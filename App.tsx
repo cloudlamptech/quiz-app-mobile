@@ -10,8 +10,6 @@ const App = () => {
     <SafeAreaProvider>
       <AuthProvider>
         <NavigationContainer>
-          {" "}
-          {/* Wrap navigation components */}
           <AppHeader />
           <AppNavigator />
         </NavigationContainer>

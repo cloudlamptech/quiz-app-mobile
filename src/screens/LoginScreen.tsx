@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   Alert,
   ActivityIndicator,
   TouchableOpacity,
+  StyleSheet,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, Input, Card } from "@rneui/themed";
 import { useAuth } from "../context/AuthContext";
+import globalStyles from "../styles/globalStyles";
 
 const LoginScreen = () => {
   const { login } = useAuth();
@@ -32,7 +33,6 @@ const LoginScreen = () => {
   };
 
   const handleMobileChange = (text) => {
-    // Remove any non-numeric characters
     const cleanedText = text.replace(/[^0-9]/g, "");
     setMobileNumber(cleanedText);
     if (errors.mobile) {
@@ -41,7 +41,6 @@ const LoginScreen = () => {
   };
 
   const handleOtpChange = (text) => {
-    // Remove any non-numeric characters
     const cleanedText = text.replace(/[^0-9]/g, "");
     setOtp(cleanedText);
     if (errors.otp) {
@@ -167,16 +166,16 @@ const LoginScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.title}>Welcome!</Text>
-        <Text style={styles.subtitle}>
+    <SafeAreaView style={globalStyles.container}>
+      <View style={globalStyles.content}>
+        <Text style={globalStyles.title}>Welcome!</Text>
+        <Text style={globalStyles.subtitle}>
           {showOtpField
             ? "Enter the OTP sent to your mobile"
             : "Enter your mobile number to continue"}
         </Text>
 
-        <Card containerStyle={styles.loginCard}>
+        <Card containerStyle={styles.card}>
           {/* Mobile Number Input */}
           <Input
             placeholder="Enter 10-digit mobile number"
@@ -186,14 +185,14 @@ const LoginScreen = () => {
             maxLength={10}
             editable={!showOtpField}
             leftIcon={{
-              type: "material",
+              type: "feather",
               name: "phone",
               color: showOtpField ? "#ccc" : "#666",
             }}
-            inputStyle={showOtpField ? styles.disabledInput : null}
+            inputStyle={showOtpField ? globalStyles.disabledInput : null}
             errorMessage={errors.mobile}
             label="Mobile Number"
-            labelStyle={styles.inputLabel}
+            labelStyle={globalStyles.inputLabel}
           />
 
           {/* Send OTP Button */}
@@ -202,8 +201,8 @@ const LoginScreen = () => {
               title={loading ? <ActivityIndicator color="#fff" /> : "Send OTP"}
               onPress={sendOTP}
               disabled={loading}
-              buttonStyle={styles.loginButton}
-              titleStyle={styles.loginButtonText}
+              buttonStyle={globalStyles.button}
+              titleStyle={globalStyles.buttonText}
             />
           )}
 
@@ -214,12 +213,13 @@ const LoginScreen = () => {
                 placeholder="Enter 6-digit OTP"
                 value={otp}
                 onChangeText={handleOtpChange}
+                secureTextEntry
                 keyboardType="numeric"
                 maxLength={6}
                 leftIcon={{ type: "material", name: "lock", color: "#666" }}
                 errorMessage={errors.otp}
                 label="OTP"
-                labelStyle={styles.inputLabel}
+                labelStyle={globalStyles.inputLabel}
               />
 
               {/* Verify OTP Button */}
@@ -229,8 +229,8 @@ const LoginScreen = () => {
                 }
                 onPress={verifyOTP}
                 disabled={loading}
-                buttonStyle={styles.loginButton}
-                titleStyle={styles.loginButtonText}
+                buttonStyle={globalStyles.button}
+                titleStyle={globalStyles.buttonText}
               />
 
               {/* Resend OTP Button */}
@@ -301,119 +301,22 @@ const LoginScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#F5F5F5",
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: 20,
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: "bold",
-    color: "#333",
-    textAlign: "center",
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: "#666",
-    textAlign: "center",
-    marginBottom: 40,
-    lineHeight: 24,
-  },
-  loginCard: {
+  card: {
     borderRadius: 12,
     paddingVertical: 20,
     marginBottom: 20,
+    backgroundColor: "#FFFFFF",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
-  inputLabel: {
+  resendTimer: {
+    marginTop: 10,
     fontSize: 14,
-    fontWeight: "600",
-    color: "#333",
-    marginBottom: 5,
-  },
-  disabledInput: {
-    color: "#ccc",
-  },
-  loginButton: {
-    backgroundColor: "#DC2626",
-    borderRadius: 8,
-    paddingVertical: 12,
-    marginTop: 20,
-  },
-  loginButtonText: {
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  resendButton: {
-    borderColor: "#0EA5E9",
-    borderRadius: 8,
-    marginTop: 15,
-  },
-  resendButtonText: {
-    color: "#0EA5E9",
-    fontSize: 14,
-    fontWeight: "500",
-  },
-  disabledText: {
-    color: "#ccc",
-  },
-  changeNumberButton: {
-    alignItems: "center",
-    marginTop: 15,
-    paddingVertical: 10,
-  },
-  changeNumberText: {
-    color: "#DC2626",
-    fontSize: 14,
-    fontWeight: "500",
-    textDecorationLine: "underline",
-  },
-  helpContainer: {
-    marginTop: 20,
-    paddingHorizontal: 10,
-  },
-  helpText: {
-    fontSize: 12,
-    color: "#999",
-    textAlign: "center",
-    lineHeight: 18,
-  },
-
-  // Test Card Styles
-  testCard: {
-    borderRadius: 12,
-    paddingVertical: 15,
-    backgroundColor: "#F0F9FF",
-    borderColor: "#0EA5E9",
-    borderWidth: 1,
-  },
-  testTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#333",
-    textAlign: "center",
-    marginBottom: 8,
-  },
-  testDescription: {
-    fontSize: 12,
     color: "#666",
     textAlign: "center",
-    marginBottom: 15,
-    lineHeight: 16,
-  },
-  testButton: {
-    borderColor: "#0EA5E9",
-    borderRadius: 6,
-    paddingVertical: 8,
-  },
-  testButtonText: {
-    color: "#0EA5E9",
-    fontSize: 14,
-    fontWeight: "500",
   },
 });
 
