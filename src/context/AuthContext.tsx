@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import LoginService from "../services/LoginService";
 
 // Create the context
 const AuthContext = createContext(null);
@@ -10,65 +10,63 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Check authentication status on app start
   useEffect(() => {
-    checkAuthStatus();
-  }, []);
-
-  const checkAuthStatus = async () => {
-    try {
-      console.log("Checking auth status...");
-      const token = await AsyncStorage.getItem("authToken");
-      const userData = await AsyncStorage.getItem("userData");
-
-      if (token && userData) {
-        console.log("User found in storage, auto-login");
-        setIsAuthenticated(true);
-        setUser(JSON.parse(userData));
-      } else {
-        console.log("No valid auth data found");
+    const checkAuth = async () => {
+      try {
+        setIsLoading(true);
+        const userData = await LoginService.getUserData();
+        if (userData) {
+          setIsAuthenticated(true);
+          setUser(userData);
+        } else {
+          setIsAuthenticated(false);
+          setUser(null);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error checking auth status:", error);
         setIsAuthenticated(false);
         setUser(null);
+        setIsLoading(false);
+      } finally {
+        setIsLoading;
       }
-    } catch (error) {
-      console.error("Error checking auth status:", error);
-      setIsAuthenticated(false);
-      setUser(null);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    };
+    checkAuth();
+  }, []);
 
   const login = async (token, userData) => {
     try {
-      console.log("Logging in user:", userData.email);
-      await AsyncStorage.setItem("authToken", token);
-      await AsyncStorage.setItem("userData", JSON.stringify(userData));
-      setIsAuthenticated(true);
-      setUser(userData);
+      const result = await LoginService.login({ token, userData });
+
+      if (result.success) {
+        setIsAuthenticated(true);
+        setUser(result.userData);
+        await LoginService.setUserData(result.userData); // Secure storage
+        return true;
+      } else {
+        setIsAuthenticated(false);
+        setUser(null);
+        return false;
+      }
     } catch (error) {
       console.error("Error during login:", error);
-      throw error;
+      return false;
     }
   };
 
   const logout = async () => {
-    try {
-      console.log("Logging out user");
-      await AsyncStorage.multiRemove(["authToken", "userData"]);
-      setIsAuthenticated(false);
-      setUser(null);
-    } catch (error) {
-      console.error("Error during logout:", error);
-    }
+    await LoginService.logout();
+    setIsAuthenticated(false);
+    setUser(null);
   };
 
-  const updateUser = async (updatedData) => {
+  const updateUser = async (updatedData: any) => {
     try {
       if (user) {
-        const newUserData = { ...user, ...updatedData };
-        await AsyncStorage.setItem("userData", JSON.stringify(newUserData));
-        setUser(newUserData);
+        // const newUserData = { ...user, ...updatedData };
+        await LoginService.setUserData(updatedData);
+        setUser(updatedData);
       }
     } catch (error) {
       console.error("Error updating user:", error);
